@@ -13,7 +13,7 @@ from pygwalker.api.streamlit import StreamlitRenderer
 # FastAPI app setup
 fastapi_app = FastAPI()
 
-# Set up CORS to allow requests from Streamlit
+# Allowing fastAPI middleware to interact with streamlit
 fastapi_app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allow any origin to make requests
@@ -22,62 +22,70 @@ fastapi_app.add_middleware(
     allow_headers=["*"],
 )
 
-# FastAPI endpoint for file upload
+# FastAPI file upload
 @fastapi_app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
     contents = await file.read()
     return {"filename": file.filename, "content_type": file.content_type}
 
-# Function to run FastAPI in a background thread
+# Run fastAPI locally as backend server
 def run_fastapi():
     uvicorn.run(fastapi_app, host="0.0.0.0", port=8000, log_level="info")
 
-# Start FastAPI in a background thread
+# Start FastAPI in background
 threading.Thread(target=run_fastapi, daemon=True).start()
 
-# Function to load data from the uploaded file (CSV or Excel)
+# Load file data 
 def load_data(file):
     if file is not None:
         # Check if file is empty
         if file.size == 0:
             st.error("The uploaded file is empty or there is another unresolved issue. Sorry for the inconvenience.")
             return None
+        # If file is csv reset to start point and read bytes from io
         if file.name.endswith('.csv'):
             file.seek(0)
             return pd.read_csv(BytesIO(file.read()))
+        # read excel files normally
         elif file.name.endswith('.xlsx'):
             return pd.read_excel(file)
+    # default return
     return None
 
-# Function to upload file to FastAPI
+# Function to upload file to FastAPI local
 def upload_to_fastapi(file):
-    url = "http://127.0.0.1:8000/upload"  # FastAPI local URL
+    url = "http://127.0.0.1:8000/upload"  # local URL
     file_bytes = BytesIO(file.read())  # Read file as bytes
     files = {'file': (file.name, file_bytes, file.type)}
     response = requests.post(url, files=files)
+    # Send JSON data response
     return response.json()
 
-# Function to preprocess data before passing it to pygwalker
+# Preprocess data before passing it to pygwalker
 def preprocess_data(df):
     df = df.applymap(lambda x: np.nan if x is None else x)
+    # Replace empty with N/A
     df = df.fillna("N/A")
+    # Limit rows to 10k
     max_rows = 10000
     return df.head(max_rows)
+##########################################
+#this section needs updated, non-functional
 
-# Callback to set visualization mode
+# Test function to prevent page revert
 def set_visualization_mode():
     st.session_state.counter = 1
 
-# Callback to reset to upload mode
+# Test function to prevent page revert
 def reset_to_upload_mode():
     st.session_state.counter = 0
-    st.session_state.data = None  # Clear uploaded data
-
-# Main Streamlit application function
+    st.session_state.data = None 
+##########################################
+# Main Streamlit app function
 def main():
-    # Set the page configuration for a wide layout
+    # Set wide layout and streamlit title
     st.set_page_config(
-        page_title="Use Pygwalker In Streamlit",
+        page_title="GoPyG",
         layout="wide"
     )
 
@@ -85,17 +93,19 @@ def main():
     if 'data' not in st.session_state:
         st.session_state.data = None
     if 'counter' not in st.session_state:
-        st.session_state.counter = 0
+        st.session_state.counter = 0 # counter is currently non-functional
 
-    # If counter == 1 and data exists, stay on visualization screen
+    # If counter == 1 and data exists, stay on visualization screen (not functional)
     if st.session_state.counter == 1 and st.session_state.data is not None:
         st.title("Data Visualization")
         df = preprocess_data(st.session_state.data)
 
         try:
+            # opens pygwalker display window using dataframe
             pyg_app = StreamlitRenderer(df)
             pyg_app.explorer()
-            # this code did not work pyg_app.explorer(width=1000, height=1000, scrolling=True, default_tab="vis")
+
+        # this exception should never appear but just incase...
         except Exception as e:
             st.error(f"An error occurred while visualizing the data: {e}")
 
@@ -103,7 +113,7 @@ def main():
         st.button("Go Back to Upload", on_click=reset_to_upload_mode)
     else:
         # Upload screen logic
-        st.title("Data Upload Screen")
+        st.title("Welcome: Select Upload File")
         uploaded_file = st.file_uploader(
             "Choose a CSV or Excel file", 
             type=['csv', 'xlsx']
@@ -125,6 +135,7 @@ def main():
                 # Button to proceed to visualization with a callback
                 st.button("Proceed to Visualization", on_click=set_visualization_mode)
             else:
+                # This error should not appear given file restrictions
                 st.error("Error loading file. Please upload a valid CSV or Excel file.")
 
 if __name__ == "__main__":
