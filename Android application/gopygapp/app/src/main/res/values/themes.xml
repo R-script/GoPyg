@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- res/values/themes.xml -->
+    <style name="Theme.GoPyg11" parent="Theme.Material3.DayNight">
+        <!-- Use the defined colors -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="android:textColorPrimary">@color/onPrimaryColor</item>
+        <item name="android:textColorSecondary">@color/onSecondaryColor</item>
+    </style>
+
+</resources>

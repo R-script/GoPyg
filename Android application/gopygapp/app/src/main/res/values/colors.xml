@@ -1,0 +1,7 @@
+<!-- res/values/colors.xml -->
+<resources>
+    <color name="primaryColor">#6200EE</color> <!-- Replace with your desired primary color -->
+    <color name="secondaryColor">#03DAC6</color> <!-- Replace with your desired secondary color -->
+    <color name="onPrimaryColor">#FFFFFF</color> <!-- Text or elements on primary color -->
+    <color name="onSecondaryColor">#000000</color> <!-- Text or elements on secondary color -->
+</resources>
