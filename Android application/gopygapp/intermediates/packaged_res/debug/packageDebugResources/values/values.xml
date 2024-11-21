@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="onPrimaryColor">#FFFFFF</color>
+    <color name="onSecondaryColor">#000000</color>
+    <color name="primaryColor">#6200EE</color>
+    <color name="secondaryColor">#03DAC6</color>
+    <string name="app_name">GoPyg</string>
+    <style name="Theme.GoPyg11" parent="Theme.Material3.DayNight">
+        
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="android:textColorPrimary">@color/onPrimaryColor</item>
+        <item name="android:textColorSecondary">@color/onSecondaryColor</item>
+    </style>
+</resources>
