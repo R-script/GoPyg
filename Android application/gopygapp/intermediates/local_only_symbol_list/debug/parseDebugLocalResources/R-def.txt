@@ -1,0 +1,18 @@
+R_DEF: Internal format may change without notice
+local
+color onPrimaryColor
+color onSecondaryColor
+color primaryColor
+color secondaryColor
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id btn_landscape
+id webview
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_foreground
+mipmap ic_launcher_round
+string app_name
+style Theme.GoPyg11
+xml backup_rules
+xml data_extraction_rules
