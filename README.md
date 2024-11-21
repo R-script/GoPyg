@@ -8,7 +8,7 @@ This application builds on the PygWalker package and is hosted using the Streaml
   1. To install on android simply download and install the GoPyg_current_release.apk
 
 ### Destop Instructions
-  1. Go to streamlit.io to run in browser
+  1. Go to [streamlit.io](https://gopyg1.streamlit.app/) to run in browser
 
 
 Currently there is no support for IOS devices.
