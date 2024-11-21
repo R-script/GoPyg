@@ -1,0 +1,4 @@
+#Tue Nov 19 16:15:02 MST 2024
+base.0=C\:\\Users\\magni\\AndroidStudioProjects\\gopygapp\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\0\\classes.dex
+path.0=0/classes.dex
+renamed.0=classes.dex
