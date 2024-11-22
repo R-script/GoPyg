@@ -10,26 +10,28 @@ import com.example.gopygapp.R
 
 class MainActivity : Activity() {
 
+    // Initializing webview, upload confirmation link and file chooser
     private lateinit var webView: WebView
     private var mUploadMessage: ValueCallback<Array<Uri>>? = null
-    private val FILECHOOSER_RESULTCODE = 1
+    private val FILECHOOSER_RESULTCODE = 1  // Used as interface between fastAPI python code and .apk
 
+    // Creating the actual app Launch instance
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize the WebView
+        // Settping up webView with pinch to zoom etc.
         webView = findViewById(R.id.webview)
         val webSettings: WebSettings = webView.settings
-        webSettings.javaScriptEnabled = true
-        webSettings.domStorageEnabled = true
-        webSettings.useWideViewPort = true // Enables a wide viewport
-        webSettings.loadWithOverviewMode = true // Fits content to screen width initially
-        webSettings.builtInZoomControls = true // Enables zoom controls
-        webSettings.displayZoomControls = false // Hides default zoom controls
-        webSettings.setSupportZoom(true) // Enables pinch-to-zoom
+        webSettings.javaScriptEnabled = true // Enable JS to modify screen size
+        webSettings.domStorageEnabled = true 
+        webSettings.useWideViewPort = true // Wide viewport
+        webSettings.loadWithOverviewMode = true // Fits content to screen width initially (override to make screen big enough)
+        webSettings.builtInZoomControls = true // Pinch to zoom controls enabled
+        webSettings.displayZoomControls = false // Hide default zoom controls
+        webSettings.setSupportZoom(true) // Enable pinch-to-zoom
 
-        // Inject JavaScript to modify the page layout
+        // Injecting JS to modify the page layout
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
@@ -52,12 +54,12 @@ class MainActivity : Activity() {
             }
         }
 
-        // Load your Streamlit app
+        // Loading Streamlit app url
         if (savedInstanceState == null) {
             webView.loadUrl("https://pygotesting.streamlit.app/")
         }
 
-        // Set up file chooser for file uploads
+        // Set up file chooser for uploads
         webView.webChromeClient = object : WebChromeClient() {
             override fun onShowFileChooser(
                 webView: WebView?,
@@ -77,7 +79,7 @@ class MainActivity : Activity() {
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 )
                 intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-
+                // Ensuring that file selected is legit
                 try {
                     startActivityForResult(
                         Intent.createChooser(intent, "Select a File"),
@@ -91,7 +93,7 @@ class MainActivity : Activity() {
             }
         }
 
-        // Rotate screen button
+        // Rotate screen button (labeled as rotate/restart)
         val btnToggleOrientation: Button = findViewById(R.id.btn_landscape)
         btnToggleOrientation.setOnClickListener {
             if (resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT) {
@@ -101,17 +103,17 @@ class MainActivity : Activity() {
             }
         }
     }
-
+    //attempting to save instance state (not really functional as is)
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         webView.saveState(outState)
     }
-
+    //continuation of above function purpose
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         webView.restoreState(savedInstanceState)
     }
-
+    // Interface for filechooser and fastAPI
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == FILECHOOSER_RESULTCODE) {
             if (mUploadMessage == null) return
