@@ -3,6 +3,7 @@
 
 This repository contains the code neccessary for the GoPyg android application.
 This application builds on the PygWalker package and is hosted using the Streamlit.io server.
+#### This is a RESTful application.
 
 ### Mobile Installation
   1. To install on android simply download and install the GoPyg_current_release.apk
