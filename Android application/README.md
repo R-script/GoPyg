@@ -9,3 +9,4 @@
 7. Update / write AndroidManifest.xml under app/manifests
 8. Under ui.theme change theme color settings
 9. Write MainActivity.kt file
+10. Create APK/bundles with the build selection in the top bar
