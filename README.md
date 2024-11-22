@@ -12,4 +12,5 @@ This application builds on the PygWalker package and is hosted using the Streaml
   1. Go to [streamlit.io](https://gopyg1.streamlit.app/) to run in browser
 
 
+# To support us check out the current release on the android app store
 Currently there is no support for IOS devices.
