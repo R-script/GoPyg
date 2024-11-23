@@ -47,7 +47,7 @@ def load_data(file):
             file.seek(0)
             return pd.read_csv(BytesIO(file.read()))
         # read excel files normally
-        elif file.name.endswith('.xlsx'):
+        elif file.name.endswith('xls','.xlsx'):
             return pd.read_excel(file)
     # default return
     return None
