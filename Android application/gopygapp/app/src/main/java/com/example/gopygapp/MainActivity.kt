@@ -27,7 +27,7 @@ class MainActivity : Activity() {
         webSettings.domStorageEnabled = true    // Enable DOM storage
         webSettings.useWideViewPort = true // Enable Wide viewport
         webSettings.loadWithOverviewMode = true // Fits content to screen width initially (override to make screen big enough)
-        webSettings.builtInZoomControls = true // Pinch to zoom controls enabled
+        webSettings.builtInZoomControls = true // Pinchto-zoom controls enabled
         webSettings.displayZoomControls = false // Hide default zoom controls
         webSettings.setSupportZoom(true) // Enable pinch-to-zoom functionality
 
