@@ -39,19 +39,20 @@ threading.Thread(target=run_fastapi, daemon=True).start()
 def load_data(file):
     if file is not None:
         # Check if file is empty
-        if file.size == 0:
-         # if len(file.getbuffer()) == 0:
+        #if file.size == 0:
+        if len(file.getbuffer()) == 0:
             st.error("The uploaded file is empty or there is another unresolved issue. Sorry for the inconvenience.")
             return None
         # If file is csv reset to start point and read bytes from io
-        if file.name.endswith('.csv'):
+        elif file.name.endswith('.csv'):
             file.seek(0)
             return pd.read_csv(BytesIO(file.read()))
         # read excel files normally
         elif file.name.endswith(('.xls','.xlsx')):
             return pd.read_excel(file)
-    # default return
-    return None
+        else
+           # default return
+           return None
 
 # Function to upload file to FastAPI local
 def upload_to_fastapi(file):
