@@ -117,7 +117,7 @@ def main():
         st.title("Welcome: Select Upload File")
         uploaded_file = st.file_uploader(
             "Choose a CSV or Excel file", 
-            type=['csv', 'xlsx','xls']
+            type=['csv','xlsx','xls']
         )
 
         if uploaded_file is not None:
