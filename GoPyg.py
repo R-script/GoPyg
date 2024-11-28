@@ -39,8 +39,8 @@ threading.Thread(target=run_fastapi, daemon=True).start()
 def load_data(file):
     if file is not None:
         # Check if file is empty
-        #if file.size == 0:
-        if len(file.getbuffer()) == 0:
+        if file.size == 0:
+         # if len(file.getbuffer()) == 0:
             st.error("The uploaded file is empty or there is another unresolved issue. Sorry for the inconvenience.")
             return None
         # If file is csv reset to start point and read bytes from io
