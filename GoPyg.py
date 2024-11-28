@@ -50,7 +50,7 @@ def load_data(file):
         # read excel files normally
         elif file.name.endswith(('.xls','.xlsx')):
             return pd.read_excel(file)
-        else
+        else:
            # default return
            return None
 
