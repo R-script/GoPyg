@@ -1,3 +1,7 @@
+import sys
+import os 
+# Add the parent directory to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pytest  # Import pytest for testing
 import pandas as pd 
 import io  # Import io for handling byte streams
@@ -5,13 +9,12 @@ import GoPyg  # Import the script containing the application logic
 from unittest.mock import patch, MagicMock  # Import tools for mocking in tests
 from fastapi.testclient import TestClient  # Import TestClient for testing FastAPI applications
 from GoPyg import fastapi_app  # Import the FastAPI app from GoPyg
-import os 
 
 # Initialize FastAPI test client for making requests to the app
 client = TestClient(fastapi_app)
 
 # Path to the CSV file used in tests
-csv_file_path = os.path.join(os.path.dirname(__file__), 'Test Data', 'addresses.csv')
+csv_file_path = os.path.join(os.path.dirname(__file__), '../Test Data', 'addresses.csv')
 
 def test_upload_file():
     # Test the file upload endpoint
