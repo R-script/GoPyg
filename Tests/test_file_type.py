@@ -4,6 +4,11 @@ import pandas as pd
 import io 
 import sys
 
+'''
+To run the test simply enter:
+pytest test_file_type.py
+'''
+
 # Add the parent directory to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
