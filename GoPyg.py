@@ -44,14 +44,15 @@ def load_data(file):
             st.error("The uploaded file is empty or there is another unresolved issue. Sorry for the inconvenience.")
             return None
         # If file is csv reset to start point and read bytes from io
-        if file.name.endswith('.csv'):
+        elif file.name.endswith('.csv'):
             file.seek(0)
             return pd.read_csv(BytesIO(file.read()))
         # read excel files normally
         elif file.name.endswith(('.xls','.xlsx')):
             return pd.read_excel(file)
-    # default return
-    return None
+        else:
+           # default return
+           return None
 
 # Function to upload file to FastAPI local
 def upload_to_fastapi(file):
@@ -117,7 +118,7 @@ def main():
         st.title("Welcome: Select Upload File")
         uploaded_file = st.file_uploader(
             "Choose a CSV or Excel file", 
-            type=['csv', 'xlsx','xls']
+            type=['csv','xlsx', 'xls']
         )
 
         if uploaded_file is not None:
