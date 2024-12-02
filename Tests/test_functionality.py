@@ -10,6 +10,11 @@ from unittest.mock import patch, MagicMock  # Import tools for mocking in tests
 from fastapi.testclient import TestClient  # Import TestClient for testing FastAPI applications
 from GoPyg import fastapi_app  # Import the FastAPI app from GoPyg
 
+'''
+To run the test simply enter:
+pytest test_functionality.py
+'''
+
 # Initialize FastAPI test client for making requests to the app
 client = TestClient(fastapi_app)
 
